@@ -2,12 +2,14 @@ package com.example.forecastapp.data
 
 import com.example.forecastapp.data.db.entity.CurrentWeatherResponse
 import okhttp3.Interceptor
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 const val API_KEY = "PIivb7AXbxldrQFj3AbEHAJGL4koLWr1"
-const val BASE_URL = "https://dataservice.accuweather.com"
+const val BASE_URL = "https://dataservice.accuweather.com/forecasts/v1/"
 
 //Query
 // GET /forecasts/v1/daily/1day/274663?apikey=%20%09PIivb7AXbxldrQFj3AbEHAJGL4koLWr1 HTTP/1.1
@@ -15,8 +17,14 @@ const val BASE_URL = "https://dataservice.accuweather.com"
 
 interface AccuWeatherApiService {
 
-    @GET("forecasts/v1/daily/1day/274663?apikey=%20%09PIivb7AXbxldrQFj3AbEHAJGL4koLWr1")
-    suspend fun getCurrentWeather() : CurrentWeatherResponse
+    //@GET("forecasts/v1/daily/1day/274663?apikey=%20%09PIivb7AXbxldrQFj3AbEHAJGL4koLWr1")
+    //suspend fun getCurrentWeather() : CurrentWeatherResponse
+
+    @GET("daily/1day/274663")
+    suspend fun getCurrentWeather(
+        @Query("language") language : String = "pl",
+        @Query("metric") metric : String = "true"
+    ) : CurrentWeatherResponse
 
     companion object{
         operator fun invoke(): AccuWeatherApiService {
@@ -24,10 +32,23 @@ interface AccuWeatherApiService {
                 val url = chain.request()
                     .url()
                     .newBuilder()
-                    .addQueryParameter()
+                    .addQueryParameter("apikey", API_KEY)
+                    .build()
+
+                val request = chain.request()
+                    .newBuilder()
+                    .url(url)
+                    .build()
+
+                return@Interceptor chain.proceed(request)
             }
 
+            val okHttpClient = OkHttpClient.Builder()
+                .addInterceptor(requestInterceptor)
+                .build()
+
             return Retrofit.Builder()
+                .client(okHttpClient)
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
