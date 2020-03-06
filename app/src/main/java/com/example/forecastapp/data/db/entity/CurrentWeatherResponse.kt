@@ -12,6 +12,7 @@ const val CURRENT_WEATHER_ID = 0
 
 @Entity(tableName = "current_weather")
 data class CurrentWeatherResponse(
+    @SerializedName("DailyForecasts")
     @Embedded(prefix = "forecast_")
     val dailyForecasts: DailyForecast
 ) {
