@@ -42,11 +42,15 @@ class CurrentWeatherFragment : Fragment() {
             val weatherResponse = apiService.getCurrentWeather()
             withContext(Main){
                 //val tMax = (currentWeather.temperature.maximum.value-32f)* (5f/9f)
+                Log.d("OMG","Response = $weatherResponse")
                 val weather = weatherResponse.dailyForecasts
-                //Log.d("OMG","List has size ${weather.size}")
+                Log.d("OMG","Weather = $weather")
+                if(weather != null){
+                    //val tMax = (weather.temperature.maximum.value-32f)* (5f/9f)
+                    //textView.text = "Temperatura w Warszawie wynosi ${tMax.toInt()}"
+                }
 
-                val tMax = (weather.temperature.maximum.value-32f)* (5f/9f)
-                textView.text = "Temperatura w Warszawie wynosi ${tMax.toInt()}"
+
             }
         }
     }
