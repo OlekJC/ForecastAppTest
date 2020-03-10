@@ -1,13 +1,12 @@
 package com.example.forecastapp.data.db.entity
 
 
-import androidx.room.Embedded
 import com.google.gson.annotations.SerializedName
 
 data class DailyForecast(
     @SerializedName("Date")
     val date: String,
-    @Embedded(prefix = "day_")
+    @SerializedName("Day")
     val day: Day,
     @SerializedName("EpochDate")
     val epochDate: Int,
@@ -15,8 +14,10 @@ data class DailyForecast(
     val link: String,
     @SerializedName("MobileLink")
     val mobileLink: String,
-    @Embedded(prefix = "night_")
+    @SerializedName("Night")
     val night: Night,
-    @Embedded(prefix = "temp_")
+    @SerializedName("Sources")
+    val sources: List<String>,
+    @SerializedName("Temperature")
     val temperature: Temperature
 )

@@ -15,6 +15,8 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 
+const val TODAY_INDEX = 0
+
 class CurrentWeatherFragment : Fragment() {
 
     companion object {
@@ -43,14 +45,13 @@ class CurrentWeatherFragment : Fragment() {
             withContext(Main){
                 //val tMax = (currentWeather.temperature.maximum.value-32f)* (5f/9f)
                 Log.d("OMG","Response = $weatherResponse")
-                val weather = weatherResponse.dailyForecasts
+                val weather = weatherResponse.dailyForecasts[TODAY_INDEX]
                 Log.d("OMG","Weather = $weather")
                 if(weather != null){
-                    //val tMax = (weather.temperature.maximum.value-32f)* (5f/9f)
-                    //textView.text = "Temperatura w Warszawie wynosi ${tMax.toInt()}"
+                    val tMax = weather.temperature.maximum.value
+                    textView.text = "Temperatura w Warszawie wynosi $tMax C\n" +
+                            "${weather.day.iconPhrase}"
                 }
-
-
             }
         }
     }
