@@ -9,5 +9,5 @@ data class Maximum(
     @SerializedName("UnitType")
     val unitType: Int,
     @SerializedName("Value")
-    val value: Int
+    val value: Double
 )
