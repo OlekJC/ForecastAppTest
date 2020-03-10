@@ -10,12 +10,11 @@ import android.view.ViewGroup
 
 import com.example.forecastapp.R
 import com.example.forecastapp.data.AccuWeatherApiService
+import com.example.forecastapp.data.db.entity.TODAY_INDEX
 import kotlinx.android.synthetic.main.current_weather_fragment.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
-
-const val TODAY_INDEX = 0
 
 class CurrentWeatherFragment : Fragment() {
 

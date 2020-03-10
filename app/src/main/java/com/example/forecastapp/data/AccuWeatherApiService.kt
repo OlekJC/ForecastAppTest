@@ -1,7 +1,6 @@
 package com.example.forecastapp.data
 
 import com.example.forecastapp.data.db.entity.CurrentWeatherResponse
-import com.example.forecastapp.data.db.entity.new.CurrentWeatherResponse2
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit

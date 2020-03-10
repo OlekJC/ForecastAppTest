@@ -6,6 +6,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
+const val TODAY_INDEX = 0
+
 @Entity(tableName = "current_weather")
 data class CurrentWeatherResponse(
     @SerializedName("DailyForecasts")
