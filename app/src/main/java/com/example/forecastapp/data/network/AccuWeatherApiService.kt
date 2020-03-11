@@ -1,4 +1,4 @@
-package com.example.forecastapp.data
+package com.example.forecastapp.data.network
 
 import com.example.forecastapp.data.db.entity.CurrentWeatherResponse
 import okhttp3.Interceptor
@@ -27,12 +27,16 @@ interface AccuWeatherApiService {
     ) : CurrentWeatherResponse
 
     companion object{
-        operator fun invoke(): AccuWeatherApiService {
+        operator fun invoke(
+            connectivityInterceptor: ConnectivityInterceptor
+        ): AccuWeatherApiService {
             val requestInterceptor = Interceptor{chain ->
                 val url = chain.request()
                     .url()
                     .newBuilder()
-                    .addQueryParameter("apikey", API_KEY)
+                    .addQueryParameter("apikey",
+                        API_KEY
+                    )
                     .build()
 
                 val request = chain.request()
@@ -45,6 +49,7 @@ interface AccuWeatherApiService {
 
             val okHttpClient = OkHttpClient.Builder()
                 .addInterceptor(requestInterceptor)
+                .addInterceptor(connectivityInterceptor)
                 .build()
 
             return Retrofit.Builder()
