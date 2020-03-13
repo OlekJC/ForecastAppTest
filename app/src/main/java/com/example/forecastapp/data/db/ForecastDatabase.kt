@@ -10,7 +10,7 @@ import com.example.forecastapp.data.db.entity.CurrentWeatherResponse
 @Database(entities = [CurrentWeatherResponse::class],version = 1)
 @TypeConverters(CurrentWeatherTypeConverter::class)
 abstract class ForecastDatabase : RoomDatabase() {
-    abstract fun weatherDao() : CurrentWeatherDAO
+    abstract fun currentWeatherDao() : CurrentWeatherDAO
 
     companion object{
 
