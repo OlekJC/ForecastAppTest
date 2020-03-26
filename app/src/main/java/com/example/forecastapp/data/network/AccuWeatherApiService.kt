@@ -22,19 +22,20 @@ interface AccuWeatherApiService {
 
     @GET("daily/1day/274663")
     suspend fun getCurrentWeather(
-        @Query("language") language : String = "pl",
-        @Query("metric") metric : String = "true"
-    ) : CurrentWeatherResponse
+        @Query("language") language: String = "pl",
+        @Query("metric") metric: String = "true"
+    ): CurrentWeatherResponse
 
-    companion object{
+    companion object {
         operator fun invoke(
             connectivityInterceptor: ConnectivityInterceptor
         ): AccuWeatherApiService {
-            val requestInterceptor = Interceptor{chain ->
+            val requestInterceptor = Interceptor { chain ->
                 val url = chain.request()
                     .url()
                     .newBuilder()
-                    .addQueryParameter("apikey",
+                    .addQueryParameter(
+                        "apikey",
                         API_KEY
                     )
                     .build()

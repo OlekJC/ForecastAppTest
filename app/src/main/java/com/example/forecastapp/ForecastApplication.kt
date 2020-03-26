@@ -2,8 +2,9 @@ package com.example.forecastapp
 
 import android.app.Application
 import com.example.forecastapp.data.db.ForecastDatabase
-import com.example.forecastapp.data.network.ConnectivityInterceptor
-import com.example.forecastapp.data.network.ConnectivityInterceptorImpl
+import com.example.forecastapp.data.network.*
+import com.example.forecastapp.data.repository.ForecastRepository
+import com.example.forecastapp.data.repository.ForecastRepositoryImpl
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.androidXModule
@@ -17,10 +18,8 @@ class ForecastApplication : Application(), KodeinAware {
         bind() from singleton { ForecastDatabase(instance()) }
         bind() from singleton { instance<ForecastDatabase>().currentWeatherDao() }
         bind<ConnectivityInterceptor>() with singleton { ConnectivityInterceptorImpl(instance()) }
-
-
-
+        bind() from singleton { AccuWeatherApiService(instance()) }
+        bind<WeatherNetworkDataSource>() with singleton { WeatherNetworkDataSourceImpl(instance()) }
+        bind<ForecastRepository>() with singleton { ForecastRepositoryImpl(instance(), instance()) }
     }
-
-
 }
