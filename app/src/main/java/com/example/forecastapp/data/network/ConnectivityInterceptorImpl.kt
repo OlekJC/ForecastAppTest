@@ -11,7 +11,7 @@ class ConnectivityInterceptorImpl(
 ) : ConnectivityInterceptor {
     private val TAG = this.javaClass.name
     private val appContext = context.applicationContext
-    private val connectivityMonitor = ConnectivityMonitor(context)
+    private val connectivityMonitor = ConnectivityMonitor(appContext)
 
     override fun intercept(chain: Interceptor.Chain): Response {
         if (!connectivityMonitor.isOnline()) {

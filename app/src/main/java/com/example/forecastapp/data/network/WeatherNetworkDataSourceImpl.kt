@@ -5,7 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.forecastapp.data.db.entity.CurrentWeatherResponse
 import com.example.forecastapp.internal.NoConnectivityException
+import javax.inject.Singleton
 
+@Singleton
 class WeatherNetworkDataSourceImpl(
     private val apiService: AccuWeatherApiService
 ) : WeatherNetworkDataSource {
