@@ -1,1 +1,5 @@
 //File with changes made to the ResoCoder's tutorial
+
+$ Used ViewModelProvider instead of deprecated ViewModelProviders
+
+$ Created ConnectivityMonitor class and implemented ConnectivityManager.NetworkCallback interface to get information about internet connection. Class NetworkInfo from the tutorial became deprecated in API29
