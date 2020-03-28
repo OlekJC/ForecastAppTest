@@ -12,10 +12,10 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 @Module
-class NetworkModule constructor(private var context : Context){
+class NetworkModule constructor(private var context: Context) {
 
     @Provides
-    fun provideWeatherNetworkDataSource(apiService: AccuWeatherApiService) : WeatherNetworkDataSource {
+    fun provideWeatherNetworkDataSource(apiService: AccuWeatherApiService): WeatherNetworkDataSource {
         return WeatherNetworkDataSourceImpl(apiService)
     }
 
@@ -39,7 +39,7 @@ class NetworkModule constructor(private var context : Context){
     }
 
     @Provides
-    fun provideConnectivityInterceptor() : ConnectivityInterceptor {
+    fun provideConnectivityInterceptor(): ConnectivityInterceptor {
         return ConnectivityInterceptorImpl(context.applicationContext)
     }
 
