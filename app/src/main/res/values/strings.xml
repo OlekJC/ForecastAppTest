@@ -5,4 +5,10 @@
     <string name="days_7">7 Days</string>
     <string name="settings">Settings</string>
     <string name="loading_text">Loading</string>
+    <string name="day_headline">Day</string>
+    <string name="night_headline">Night</string>
+    <string name="has_precipitation">Expected precipitation</string>
+    <string name="no_precipitation">No precipitation</string>
+    <string name="image_day_description">Weather icon during day</string>
+    <string name="image_night_description">Weather icon during night</string>
 </resources>

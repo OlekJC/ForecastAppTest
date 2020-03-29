@@ -6,4 +6,10 @@
     <string name="days_7">7 Dni</string>
     <string name="settings">Ustawienia</string>
     <string name="loading_text">Ładowanie</string>
+    <string name="day_headline">Dzień</string>
+    <string name="night_headline">Noc</string>
+    <string name="has_precipitation">Przewidywane opady</string>
+    <string name="no_precipitation">Bez opadów</string>
+    <string name="image_day_description">Ikona pogody w ciągu dnia</string>
+    <string name="image_night_description">Ikona pogody w ciągu nocy</string>
 </resources>
