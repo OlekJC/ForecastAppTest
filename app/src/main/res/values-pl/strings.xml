@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Pogoda</string>
+    <string name="warsaw_city">Warszawa</string>
+    <string name="today">Dzisiaj</string>
+    <string name="days_7">7 Dni</string>
+    <string name="settings">Ustawienia</string>
+    <string name="loading_text">Ładowanie</string>
 </resources>
