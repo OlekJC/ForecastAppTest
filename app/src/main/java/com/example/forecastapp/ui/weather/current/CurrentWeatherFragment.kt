@@ -15,7 +15,6 @@ import com.example.forecastapp.di.components.DaggerAppComponent
 import com.example.forecastapp.di.modules.NetworkModule
 import com.example.forecastapp.di.modules.RepositoryModule
 import com.example.forecastapp.di.modules.ViewModelModule
-import com.example.forecastapp.internal.glide.GlideApp
 import kotlinx.android.synthetic.main.current_weather_fragment.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
@@ -23,6 +22,7 @@ import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
+
 
 const val CELSIUS_SIGN = "°C"
 
@@ -60,9 +60,11 @@ class CurrentWeatherFragment : Fragment() {
             withContext(Main) {
                 currentWeather.observe(viewLifecycleOwner, Observer {
                     if (it == null) return@Observer
-                    group_loading.visibility=View.GONE
+                    group_loading.visibility = View.GONE
                     setDayForecast(it)
+                    setDayIcon(it)
                     setNightForecast(it)
+                    setNightIcon(it)
                     /*GlideApp.with(this@CurrentWeatherFragment)
                         .load()*/
                 })
@@ -70,31 +72,46 @@ class CurrentWeatherFragment : Fragment() {
         }
     }
 
-    private fun setActionBar(){
+    private fun setActionBar() {
         (activity as? AppCompatActivity)?.supportActionBar?.title = "Warsaw"
         (activity as? AppCompatActivity)?.supportActionBar?.subtitle = "Dziś"
     }
 
-    private fun setDayForecast(currentWeather : CurrentWeatherResponse) {
+    private fun setNightIcon(currentWeather: CurrentWeatherResponse) {
+        val weather = currentWeather.dailyForecasts[TODAY_INDEX]
+        val mDrawableName = "ic_${weather.night.icon}"
+        val resID = resources.getIdentifier(mDrawableName, "drawable", requireContext().packageName)
+        imageView_condition_night.setImageResource(resID)
+    }
+
+    private fun setDayIcon(currentWeather: CurrentWeatherResponse) {
+        val weather = currentWeather.dailyForecasts[TODAY_INDEX]
+        val mDrawableName = "ic_${weather.day.icon}"
+        val resID = resources.getIdentifier(mDrawableName, "drawable", requireContext().packageName)
+        imageView_condition_day.setImageResource(resID)
+    }
+
+    private fun setDayForecast(currentWeather: CurrentWeatherResponse) {
         val weather = currentWeather.dailyForecasts[TODAY_INDEX]
         //Set headline
         textView_condition_day.text = weather.day.iconPhrase
         //Set temperature
         textView_temperature_day.text = "${weather.temperature.maximum.value} $CELSIUS_SIGN"
         //Has Precipitation
-        textView_precipitation_day.text = if(weather.day.hasPrecipitation) "Prognozowane opady" else "Brak opadów"
+        textView_precipitation_day.text =
+            if (weather.day.hasPrecipitation) "Prognozowane opady" else "Brak opadów"
     }
 
-    private fun setNightForecast(currentWeather : CurrentWeatherResponse) {
+    private fun setNightForecast(currentWeather: CurrentWeatherResponse) {
         val weather = currentWeather.dailyForecasts[TODAY_INDEX]
         //Set headline
         textView_condition_night.text = weather.night.iconPhrase
         //Set temperature
         textView_temperature_night.text = "${weather.temperature.minimum.value} $CELSIUS_SIGN"
         //Has Precipitation
-        textView_precipitation_night.text = if(weather.night.hasPrecipitation) "Prognozowane opady" else "Brak opadów"
+        textView_precipitation_night.text =
+            if (weather.night.hasPrecipitation) "Prognozowane opady" else "Brak opadów"
     }
-
 
 
     private fun getWeatherText(response: CurrentWeatherResponse): String {
