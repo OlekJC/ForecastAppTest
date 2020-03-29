@@ -46,6 +46,7 @@ class CurrentWeatherFragment : Fragment() {
             .inject(this)
 
         super.onActivityCreated(savedInstanceState)
+        constant_labels.visibility=View.GONE
         viewModel =
             ViewModelProvider(this, viewModelFactory).get(CurrentWeatherViewModel::class.java)
         bindUI()
@@ -59,6 +60,7 @@ class CurrentWeatherFragment : Fragment() {
                 currentWeather.observe(viewLifecycleOwner, Observer {
                     if (it == null) return@Observer
                     group_loading.visibility = View.GONE
+                    constant_labels.visibility=View.VISIBLE
                     setDayForecast(it)
                     setDayIcon(it)
                     setNightForecast(it)
@@ -71,8 +73,8 @@ class CurrentWeatherFragment : Fragment() {
     }
 
     private fun setActionBar() {
-        (activity as? AppCompatActivity)?.supportActionBar?.title = "Warsaw"
-        (activity as? AppCompatActivity)?.supportActionBar?.subtitle = "Dziś"
+        (activity as? AppCompatActivity)?.supportActionBar?.title = getText(R.string.warsaw_city)
+        (activity as? AppCompatActivity)?.supportActionBar?.subtitle = getText(R.string.today)
     }
 
     private fun setNightIcon(currentWeather: CurrentWeatherResponse) {
