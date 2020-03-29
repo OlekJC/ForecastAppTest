@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.forecastapp.R
+import com.example.forecastapp.data.constants.CELSIUS_SIGN
 import com.example.forecastapp.data.db.entity.CurrentWeatherResponse
 import com.example.forecastapp.data.db.entity.TODAY_INDEX
 import com.example.forecastapp.di.components.DaggerAppComponent
@@ -22,9 +23,6 @@ import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
-
-
-const val CELSIUS_SIGN = "°C"
 
 class CurrentWeatherFragment : Fragment() {
 

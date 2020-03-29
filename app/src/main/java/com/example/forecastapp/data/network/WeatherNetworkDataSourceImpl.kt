@@ -25,5 +25,8 @@ class WeatherNetworkDataSourceImpl(
         } catch (e: NoConnectivityException) {
             Log.e(TAG,"No internet connection",e)
         }
+        catch(e: Exception){
+            Log.e(TAG,"Exception : ${e.message}")
+        }
     }
 }
