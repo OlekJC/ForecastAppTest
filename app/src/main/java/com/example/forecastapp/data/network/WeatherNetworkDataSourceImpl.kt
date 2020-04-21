@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.forecastapp.data.db.entity.CurrentWeatherResponse
 import com.example.forecastapp.internal.NoConnectivityException
+import java.util.*
 import javax.inject.Singleton
 
 @Singleton
@@ -20,7 +21,7 @@ class WeatherNetworkDataSourceImpl(
     override suspend fun fetchCurrentWeather(language: String, metric: String) {
         try{
             val fetchedCurrentWeather = apiService
-                .getCurrentWeather("pl",metric)
+                .getCurrentWeather(language,metric)
             _downloadedCurentWeather.postValue(fetchedCurrentWeather)
         } catch (e: NoConnectivityException) {
             Log.e(TAG,"No internet connection",e)

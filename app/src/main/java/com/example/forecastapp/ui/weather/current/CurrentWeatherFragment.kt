@@ -10,8 +10,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.forecastapp.R
 import com.example.forecastapp.data.constants.CELSIUS_SIGN
+import com.example.forecastapp.data.constants.FAHRENHEIT_SIGN
 import com.example.forecastapp.data.db.entity.CurrentWeatherResponse
 import com.example.forecastapp.data.db.entity.TODAY_INDEX
+import com.example.forecastapp.data.provider.UnitsUtils
 import com.example.forecastapp.di.components.DaggerAppComponent
 import com.example.forecastapp.di.modules.NetworkModule
 import com.example.forecastapp.di.modules.RepositoryModule
@@ -67,8 +69,6 @@ class CurrentWeatherFragment : Fragment() {
                     setDayIcon(it)
                     setNightForecast(it)
                     setNightIcon(it)
-                    /*GlideApp.with(this@CurrentWeatherFragment)
-                        .load()*/
                 })
             }
         }
@@ -98,10 +98,12 @@ class CurrentWeatherFragment : Fragment() {
         //Set headline
         textView_condition_day.text = weather.day.iconPhrase
         //Set temperature
-        textView_temperature_day.text = "${weather.temperature.maximum.value} $CELSIUS_SIGN"
+        val temperature = "${weather.temperature.maximum.value} ${UnitsUtils.getUnitAbbreviation(viewModel.isMetric(),
+            CELSIUS_SIGN, FAHRENHEIT_SIGN)}"
+        textView_temperature_day.text = temperature
         //Has Precipitation
         textView_precipitation_day.text =
-            if (weather.day.hasPrecipitation) "Prognozowane opady" else "Brak opadów"
+            if (weather.day.hasPrecipitation) getText(R.string.has_precipitation) else getText(R.string.no_precipitation)
     }
 
     private fun setNightForecast(currentWeather: CurrentWeatherResponse) {
@@ -109,16 +111,11 @@ class CurrentWeatherFragment : Fragment() {
         //Set headline
         textView_condition_night.text = weather.night.iconPhrase
         //Set temperature
-        textView_temperature_night.text = "${weather.temperature.minimum.value} $CELSIUS_SIGN"
+        val temperature = "${weather.temperature.minimum.value} ${UnitsUtils.getUnitAbbreviation(viewModel.isMetric(),
+            CELSIUS_SIGN, FAHRENHEIT_SIGN)}"
+        textView_temperature_night.text = temperature
         //Has Precipitation
         textView_precipitation_night.text =
-            if (weather.night.hasPrecipitation) "Prognozowane opady" else "Brak opadów"
-    }
-
-
-    private fun getWeatherText(response: CurrentWeatherResponse): String {
-        val tMax = response.dailyForecasts[TODAY_INDEX].temperature.maximum.value
-        val phrase = response.dailyForecasts[TODAY_INDEX].day.iconPhrase
-        return "Temperatura w Warszawie wynosi $tMax C\n $phrase"
+            if (weather.night.hasPrecipitation) getText(R.string.has_precipitation) else getText(R.string.no_precipitation)
     }
 }

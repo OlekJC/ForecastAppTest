@@ -9,6 +9,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.time.ZonedDateTime
+import java.util.*
 
 class ForecastRepositoryImpl(
     private val currentWeatherDAO: CurrentWeatherDAO,
@@ -44,7 +45,7 @@ class ForecastRepositoryImpl(
 
     private suspend fun fetchCurrentWeather() {
         val isMetricString = if(isMetric) "true" else "false"
-        weatherNetworkDataSource.fetchCurrentWeather(language = "pl",metric = isMetricString)
+        weatherNetworkDataSource.fetchCurrentWeather(Locale.getDefault().language,isMetricString)
     }
 
     private fun isFetchCurrentNeeded(lastFetchTime: ZonedDateTime): Boolean {
