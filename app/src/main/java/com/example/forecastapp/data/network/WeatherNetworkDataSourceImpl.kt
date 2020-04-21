@@ -15,12 +15,12 @@ class WeatherNetworkDataSourceImpl(
 
     private val _downloadedCurentWeather = MutableLiveData<CurrentWeatherResponse>()
     override val downloadedCurrentWeather: LiveData<CurrentWeatherResponse>
-        get() = _downloadedCurentWeather //To change initializer of created properties use File | Settings | File Templates.
+        get() = _downloadedCurentWeather
 
     override suspend fun fetchCurrentWeather(language: String, metric: String) {
         try{
             val fetchedCurrentWeather = apiService
-                .getCurrentWeather()
+                .getCurrentWeather("pl",metric)
             _downloadedCurentWeather.postValue(fetchedCurrentWeather)
         } catch (e: NoConnectivityException) {
             Log.e(TAG,"No internet connection",e)

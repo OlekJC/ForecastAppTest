@@ -15,6 +15,7 @@ import com.example.forecastapp.data.db.entity.TODAY_INDEX
 import com.example.forecastapp.di.components.DaggerAppComponent
 import com.example.forecastapp.di.modules.NetworkModule
 import com.example.forecastapp.di.modules.RepositoryModule
+import com.example.forecastapp.di.modules.UnitsModule
 import com.example.forecastapp.di.modules.ViewModelModule
 import kotlinx.android.synthetic.main.current_weather_fragment.*
 import kotlinx.coroutines.CoroutineScope
@@ -42,6 +43,7 @@ class CurrentWeatherFragment : Fragment() {
             .networkModule(NetworkModule(requireContext()))
             .repositoryModule(RepositoryModule(requireContext()))
             .viewModelModule(ViewModelModule())
+            .unitsModule(UnitsModule(requireContext()))
             .build()
             .inject(this)
 

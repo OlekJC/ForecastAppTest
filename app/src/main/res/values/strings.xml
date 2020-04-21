@@ -1,4 +1,7 @@
 <resources>
+    <!--Constants-->
+    <string name="unit_system" translatable="false">UNIT_SYSTEM</string>
+    <!--User text-->
     <string name="app_name">Forecast Application</string>
     <string name="warsaw_city">Warsaw</string>
     <string name="today">Today</string>

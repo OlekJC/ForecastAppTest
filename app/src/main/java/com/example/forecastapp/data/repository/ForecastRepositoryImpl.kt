@@ -14,6 +14,7 @@ class ForecastRepositoryImpl(
     private val currentWeatherDAO: CurrentWeatherDAO,
     private val weatherNetworkDataSource: WeatherNetworkDataSource
 ) : ForecastRepository {
+    private var isMetric : Boolean = false
 
     init {
         weatherNetworkDataSource.downloadedCurrentWeather.observeForever {
@@ -21,7 +22,8 @@ class ForecastRepositoryImpl(
         }
     }
 
-    override suspend fun getCurrentWeather(): LiveData<CurrentWeatherResponse> {
+    override suspend fun getCurrentWeather(isMetric : Boolean): LiveData<CurrentWeatherResponse> {
+        this.isMetric = isMetric
         return withContext(IO) {
             initWeatherData()
             return@withContext currentWeatherDAO.getWeather()
@@ -41,7 +43,8 @@ class ForecastRepositoryImpl(
     }
 
     private suspend fun fetchCurrentWeather() {
-        weatherNetworkDataSource.fetchCurrentWeather("pl","true")
+        val isMetricString = if(isMetric) "true" else "false"
+        weatherNetworkDataSource.fetchCurrentWeather(language = "pl",metric = isMetricString)
     }
 
     private fun isFetchCurrentNeeded(lastFetchTime: ZonedDateTime): Boolean {

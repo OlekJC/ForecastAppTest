@@ -14,3 +14,4 @@
 .cxx
 .idea
 /app/src/main/java/com/example/forecastapp/data/constants/ApiKey.kt
+/changes.txt
