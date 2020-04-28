@@ -2,6 +2,7 @@ package com.example.forecastapp.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
@@ -23,6 +24,12 @@ class MainActivity : AppCompatActivity() {
         bottom_nav.setupWithNavController(navController)
         NavigationUI.setupActionBarWithNavController(this,navController)
 
+    }
+
+    //To show SearchView
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.search_menu,menu)
+        return true
     }
 
     override fun onSupportNavigateUp(): Boolean {

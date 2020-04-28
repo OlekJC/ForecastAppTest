@@ -44,6 +44,7 @@ class ForecastRepositoryImpl(
     }
 
     private suspend fun fetchCurrentWeather() {
+        //todo check route of ismMtric and language parameters
         val isMetricString = if(isMetric) "true" else "false"
         weatherNetworkDataSource.fetchCurrentWeather(Locale.getDefault().language,isMetricString)
     }

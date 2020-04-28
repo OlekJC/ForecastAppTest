@@ -8,12 +8,16 @@
             android:summary="Allow the app to get your location"
             android:defaultValue="false"
             android:disableDependentsState="true"/>
-        <EditTextPreference
+        <Preference
             android:key="CUSTOM_LOCATION"
             android:title="Location"
             android:summary="The location for the displayed weather"
             android:defaultValue="Warsaw"
-            android:dependency="USE_DEVICE_LOCATION"/>
+            android:dependency="USE_DEVICE_LOCATION">
+           <!-- <intent
+                android:targetPackage="com.example.forecastapp"
+                android:targetClass="com.example.forecastapp.ui.settings.LocationChooserActivity"/>-->
+        </Preference>
         </PreferenceCategory>
     <PreferenceCategory
         android:title="Units">
